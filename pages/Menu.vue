@@ -2,13 +2,60 @@
 export default{
     data() {
         return {
-            active: false
+            active: false,
+            messsage: 'マウスhover',
+            hoverFlag: false,
+            isOpen: false,
+            items: [
+              {
+                url: "#",
+                name: "Home"
+              },
+              {
+                url: "#",
+                name: "About"
+              },
+              {
+                url: "#",
+                name: "Service",
+                children: [
+                  {
+                    url: "#",
+                    name: "Service1"
+                  },
+                  {
+                    url: "#",
+                    name: "Service2"
+                  },
+                  {
+                    url: "#",
+                    name: "Service3"
+                  }
+                ]
+              },
+              {
+                url: "#",
+                name: "Url"
+              },
+            ]
         }
     },
     // クリックしたらデータactiveの真偽値を変更
     methods: {
         click: function () {
             this.active = !this.active
+        },
+        mouseOverAction(){
+          this.hoverFlag = true
+        },
+        mouseLeaveAction() {
+          this.hoverFlag = false
+        },
+        mouseover() {
+          this.isOpen = true
+        },
+        mouseleave() {
+          this.isOpen = false
         }
     },
 }
@@ -18,12 +65,38 @@ export default{
 <template>
 <div>
   <div id="app">
-    <button v-bind:class="{active}" v-on:click="click" class="menu-trigger">
+    <button :class="{active}" v-on:click="click" class="menu-trigger">
       <span></span>
       <span></span>
       <span></span>
     </button>
   </div>
+
+  <header>
+    <nav id="nav">
+      <h1>Site Title</h1>
+      <ul>
+        <li v-for="item in items" :key="item">
+          <a :href="item.url" v-if="!item.children">
+            {{ item.name }}
+          </a>
+          <span
+            v-else
+            @mouseover="mouseover"
+            @mouseleave="mouseleave">
+            {{ item.name }}
+            
+            <ul class="dropdown" :class="{isOpen}">
+              <li v-for="child in item.children" :key="child">
+                <a :href="child.url">{{ child.name }}</a>
+              </li>
+            </ul>
+          </span>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
   <div v-show="active" class="list">
     <ul>
       <li><a href="#home">HOME</a></li>
@@ -31,33 +104,130 @@ export default{
       <li><a href="#information">INFORMATION</a></li>
     </ul>
   </div>
+
   <div class="menu">
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
-  <h2>aaa</h2>
+    <div class="hover">
+      <div @mouseover="mouseOverAction"  >
+        <h1 
+        data-target="#content-menu" class="hover-text">{{messsage}}</h1>
+        <!-- <p v-if="hoverFlag">hoverされました</p> -->
+        <ul id="content-menu" v-if="hoverFlag" @mouseleave="mouseLeaveAction">
+          <li><a href="#aaa">aaa</a></li>
+          <li><a href="#bbb">bbb</a></li>
+          <li><a href="#ccc">ccc</a></li>
+        </ul>
+      </div>
+    </div>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
+    <h2>aaa</h2>
   </div>
 </div>
 
 </template>
 
 <style scoped>
+/* Site Title */
+header {
+    width: 100%;
+    background-color: rgb(173, 170, 170);
+    margin-top: 50px;
+}
+#nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+#nav h1 {
+    margin: 0 0 0 20px;
+}
+#nav > ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+#nav > ul > li {
+    margin: 0 20px 0 0;
+}
+#nav > ul > li > a {
+    display: block;
+    height: auto;
+    padding: 20px;
+    text-decoration: none;
+}
+#nav > ul > li > span {
+    position: relative;
+    display: block;
+    height: auto;
+    padding: 20px;
+    text-decoration: none;
+}
+#nav > ul > li > span:after {
+    content: '▼';
+    display: inline-block;
+    transform: rotate(90deg);
+}
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    padding: 0;
+    list-style-type: none;
+    background-color: rgb(173, 170, 170);
+}
+.dropdown li {
+    width: 250px;
+    border-bottom: 1px solid;
+}
+.dropdown li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+}
+.isOpen {
+    display: block;
+}
+
+/* マウスhover */
+.hover {
+  padding: 0;
+  margin: 0;
+}
+.hover-text {
+  background-color: gray;
+}
+#content-menu {
+  background-color: gray;
+  width: 30%;
+  position: fixed;
+  margin: 0;
+}
+#content-menu li {
+  text-align: center;
+  padding-right: 35%;
+}
 a {
   color: black;
 }
@@ -66,12 +236,6 @@ li {
   text-align: center;
   margin-bottom: 15px;
   text-decoration: underline;
-}
-ul {
-  z-index: 9;
-}
-.menu {
-  padding-top: 30px;
 }
 #app {
   position: fixed;
