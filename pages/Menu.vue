@@ -56,6 +56,14 @@ export default{
         },
         mouseleave() {
           this.isOpen = false
+        },
+        // 「behavior」はアニメーションの速度
+        // smooth・instant・auto
+        scrollTop() {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          })
         }
     },
 }
@@ -105,39 +113,52 @@ export default{
     </ul>
   </div>
 
-  <div class="menu">
-    <div class="hover">
-      <div @mouseover="mouseOverAction"  >
-        <h1 
-        data-target="#content-menu" class="hover-text">{{messsage}}</h1>
-        <!-- <p v-if="hoverFlag">hoverされました</p> -->
-        <ul id="content-menu" v-if="hoverFlag" @mouseleave="mouseLeaveAction">
-          <li><a href="#aaa">aaa</a></li>
-          <li><a href="#bbb">bbb</a></li>
-          <li><a href="#ccc">ccc</a></li>
-        </ul>
-      </div>
+  <div>
+    <h2 class="sticky">Sticky sample</h2>
+    <p>bbbb</p>
+    <p>bbbb</p>
+    <p>bbbb</p>
+    <p>bbbb</p>
+    <p>bbbb</p>
+
+    <div class="page-btn">
+      <button @click="scrollTop" class="btn">TOP</button>
     </div>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
-    <h2>aaa</h2>
+
+    <div class="menu">
+      <div class="hover">
+        <div @mouseover="mouseOverAction"  >
+          <h1 
+          data-target="#content-menu" class="hover-text">{{messsage}}</h1>
+          <!-- <p v-if="hoverFlag">hoverされました</p> -->
+          <ul id="content-menu" v-if="hoverFlag" @mouseleave="mouseLeaveAction">
+            <li><a href="#aaa">aaa</a></li>
+            <li><a href="#bbb">bbb</a></li>
+            <li><a href="#ccc">ccc</a></li>
+          </ul>
+        </div>
+      </div>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+      <h2>aaa</h2>
+    </div>
   </div>
 </div>
 
@@ -196,6 +217,7 @@ header {
     padding: 0;
     list-style-type: none;
     background-color: rgb(173, 170, 170);
+    z-index: 5;
 }
 .dropdown li {
     width: 250px;
@@ -208,6 +230,25 @@ header {
 }
 .isOpen {
     display: block;
+}
+
+/* sticky */
+.sticky {
+  position: sticky;
+  top: 0;
+  background-color: rgb(65, 64, 64);
+  color: #fff;
+}
+
+/* ページトップへボタン */
+.page-btn {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+}
+.btn {
+  width: 100px;
+  height: 40px;
 }
 
 /* マウスhover */
