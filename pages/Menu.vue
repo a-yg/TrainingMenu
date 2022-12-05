@@ -26,9 +26,9 @@ export default{
   </div>
   <div v-show="active" class="list">
     <ul>
-      <li>HOME</li>
-      <li>MENU</li>
-      <li>INFORMATION</li>
+      <li><a href="#home">HOME</a></li>
+      <li><a href="#menu">MENU</a></li>
+      <li><a href="#information">INFORMATION</a></li>
     </ul>
   </div>
   <div class="menu">
@@ -58,6 +58,9 @@ export default{
 </template>
 
 <style scoped>
+a {
+  color: black;
+}
 li {
   list-style: none;
   text-align: center;
@@ -66,6 +69,9 @@ li {
 }
 ul {
   z-index: 9;
+}
+.menu {
+  padding-top: 30px;
 }
 #app {
   position: fixed;
